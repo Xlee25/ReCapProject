@@ -7,7 +7,7 @@ using Entities.Concrete;
 
 namespace DataAccess.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal
     {
         List<Car> _cars;
 

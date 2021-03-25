@@ -1,0 +1,15 @@
+﻿using Core.Entities;
+using Entities.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Entities.Concrete.DTOs
+{
+    public class CarDetailAndImagesDto : IDto
+    {
+        public CarDetailDto Car { get; set; }
+        public List<CarImage> CarImages { get; set; }
+
+    }
+}
