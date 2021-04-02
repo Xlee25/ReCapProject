@@ -4,6 +4,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
+using Entities.Concrete;
 using Entities.Concrete.DTOs;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace Buisness.Concrete
     {
         private IUserService _userService;
         private ITokenHelper _tokenHelper;
+        private ICustomerService _customerService;
 
-        public AuthManager(IUserService userService,ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService,ITokenHelper tokenHelper,ICustomerService customerService)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _customerService = customerService;
         }
 
         public IDataResult<User> Register(UserForRegisterDto userRegisterDto, string password)
@@ -54,6 +57,45 @@ namespace Buisness.Concrete
 
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
+
+        public IDataResult<UserForUpdateDto> Update(UserForUpdateDto userForUpdate)
+        {
+            var currentUser = _userService.GetById(userForUpdate.UserId);
+
+            var user = new User
+            {
+                Id = userForUpdate.UserId,
+                Email = userForUpdate.Email,
+                FirstName = userForUpdate.FirstName,
+                LastName = userForUpdate.LastName,
+                PasswordHash = currentUser.Data.PasswordHash,
+                PasswordSalt = currentUser.Data.PasswordSalt
+            };
+
+            byte[] passwordHash, passwordSalt;
+
+            if(userForUpdate.Password != "")
+            {
+                HashingHelper.CreatePasswordHash(userForUpdate.Password, out passwordHash, out passwordSalt);
+
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+            }
+
+            _userService.Update(user);
+
+            var customer = new Customer
+            {
+                Id = userForUpdate.Id,
+                UserId = userForUpdate.UserId,
+                CompanyName = userForUpdate.companyName
+            };
+
+            _customerService.Update(customer);
+
+            return new SuccessDataResult<UserForUpdateDto>(userForUpdate, Messages.CustomerUpdated);
+        }
+
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {

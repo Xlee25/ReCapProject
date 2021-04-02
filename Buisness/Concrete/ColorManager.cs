@@ -5,6 +5,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Buisness.Concrete
@@ -25,18 +26,18 @@ namespace Buisness.Concrete
         public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
-            return new ErrorResult(Messages.ColorDeleted);
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
         public IResult Update(Color color)
         {
             _colorDal.Update(color);
-            return new ErrorResult(Messages.ColorUpdated);
+            return new SuccessResult(Messages.ColorUpdated);
         }
 
         public IDataResult<Color> GetById(int id)
         {
-            return new SuccessDataResult<Color>(_colorDal.Get(c=> c.Id == id),Messages.ColorGetById);
+            return new SuccessDataResult<Color>(_colorDal.GetAll().Where(c=> c.Id == id).FirstOrDefault(), Messages.ColorGetById);
         }
 
 

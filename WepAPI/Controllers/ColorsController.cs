@@ -40,7 +40,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPut("Update")]
+        [HttpPost("Update")]
         public IActionResult Update(Color color)
         {
             var result = _colorService.Update(color);

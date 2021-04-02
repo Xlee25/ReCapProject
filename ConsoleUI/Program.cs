@@ -18,17 +18,6 @@ namespace ConsoleUI
         }
         private static void ProductManager()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            var result = carManager.GetCarDetails();
-            if (result.Success == true)
-            {
-                foreach (var car in carManager.GetCarDetails().Data)
-                {
-                    Console.WriteLine(car.ModelYear + "/" + car.Description);
-                }
-            }
-                Console.WriteLine(result.Message);
         }
     }
 }

@@ -32,9 +32,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getbyid")]
-        public ActionResult GetById(int id)
+        public IActionResult GetById(int id)
         {
-            var result = _customerService.Get(id);
+            var result = _customerService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -52,7 +52,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult Add(Customer customer)
+        public IActionResult Add(Customer customer)
         {
             var result = _customerService.Add(customer);
             if (result.Success)
@@ -61,7 +61,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("update")]
-        public ActionResult Update(Customer customer)
+        public IActionResult Update(Customer customer)
         {
             var result = _customerService.Update(customer);
             if (result.Success)

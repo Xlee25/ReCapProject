@@ -26,9 +26,9 @@ namespace Buisness.Concrete
             _carDal = carDal;
             _carImageService = carImageService;
         }
-        //[CacheRemoveAspect("ICarService.Get")]
-        //[SecuredOperation("product.add,admin")]
-        //[ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.GetById")]
+        [SecuredOperation("car.add,admin")]
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             if (car.DailyPrice < 0)

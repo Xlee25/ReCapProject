@@ -16,6 +16,8 @@ namespace Buisness.Constans.Messages
         public static string CarNameInvalid = "Car Name is invalid";
         public static string CarUpdated = "Car Updated";
         public static string CarIdListed = "Car Id Listed";
+        public static string GetErrorCarMessage = "Araba mesai eklenemedi";
+        public static string GetSuccessCarMessage = "Araba mesaji basariyla eklendi";
 
         public static string BrandAdded = "Brand Added";
         public static string BrandDeleted = "Brand Deleted";
@@ -36,6 +38,13 @@ namespace Buisness.Constans.Messages
         public static string CategoriesListed = "Categories Listed";
         public static string CategoryNameInvalid = "Category Name is invalid";
         public static string CategoryUpdated = "Category Updated";
+        public static string GetCustomerById = "Customer listed by id";
+
+        public static string AddCustomerMessage = "Musteri mesaji ekle";
+        public static string DeleteCustomerMessages = "Musteri mesaji sil";
+        public static string UpdateCustomerMessages = "Musteri mesaji guncelle";
+        public static string GetSuccessCustomerMessage = "Musteri mesaji eklendi";
+        public static string GetErrorCustomerMessage = "Musteri mesaji eklenemedi";
 
         public static string RentalAdded = "Rental Added";
         public static string RentalNotAdded = "Rental Not Added !";
@@ -50,7 +59,6 @@ namespace Buisness.Constans.Messages
         public static string UserListed = "User Listed";
         public static string UserNameInvalid = "User Name is invalid";
         public static string UserUpdated = "User Updated";
-        
         public static string CarImageLimitExceded = "Maximum image limit";
 
 
@@ -64,13 +72,6 @@ namespace Buisness.Constans.Messages
 
         public static string InsufficientBalance = "Yetersiz bakiye";
         public static string PaymentCompleted = "Odeme tamamlandi";
-        public static string AddCustomerMessage = "Musteri mesaji ekle";
-        public static string DeleteCustomerMessages = "Musteri mesaji sil";
-        public static string UpdateCustomerMessages = "Musteri mesaji guncelle";
-        public static string GetSuccessCustomerMessage = "Musteri mesaji eklendi";
-        public static string GetErrorCustomerMessage = "Musteri mesaji eklenemedi";
-        public static string GetErrorCarMessage = "Araba mesai eklenemedi";
-        public static string GetSuccessCarMessage = "Araba mesaji basariyla eklendi";
-        
+        internal static string CustomerUpdated;
     }
 }

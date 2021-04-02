@@ -5,6 +5,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Buisness.Concrete
@@ -43,7 +44,7 @@ namespace Buisness.Concrete
 
         public IDataResult<Brand> GetById(int id)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == id), Messages.BrandsGetById);
+            return new SuccessDataResult<Brand>(_brandDal.GetAll().Where(b=> b.Id == id).FirstOrDefault(), Messages.BrandsGetById);
         }
 
         public IResult Update(Brand brand)
@@ -55,7 +56,7 @@ namespace Buisness.Concrete
             }
             else
             {
-                return new SuccessResult(Messages.BrandNameInvalid);
+                return new ErrorResult(Messages.BrandNameInvalid);
             }
         }
     }

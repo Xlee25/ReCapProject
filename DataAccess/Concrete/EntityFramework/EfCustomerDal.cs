@@ -11,7 +11,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCustomerDal : EfEntityRepositoryBase<Customer, ReCapProjectContext>, ICustomerDal
     {
-        public List<CustomerDetailDto> GetCustomerDetailDto()
+        public List<CustomerDetailDto> GetCustomerDetailsDto()
         {
             using (ReCapProjectContext context = new ReCapProjectContext())
             {
@@ -19,10 +19,12 @@ namespace DataAccess.Concrete.EntityFramework
                              join user in context.Users on customer.UserId equals user.Id
                              select new CustomerDetailDto()
                              {
-                                 Id = customer.Id,
+                                Id = customer.Id,
+                                userId = user.Id,
                                 CompanyName = customer.CompanyName,
                                 FirstName = user.FirstName,
-                                LastName = user.LastName
+                                LastName = user.LastName,
+                                Email = user.Email
                              };
                 return result.ToList();
             }

@@ -22,6 +22,12 @@ namespace Buisness.Concrete
             _userDal.Add(user);
         }
 
+        public IResult Update(User user)
+        {
+            _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
@@ -30,6 +36,12 @@ namespace Buisness.Concrete
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);
+        }
+
+        public IDataResult<User> GetById(int userId)
+        {
+            var getById = _userDal.Get(u => u.Id == userId);
+            return new SuccessDataResult<User>(getById);
         }
     }
 }

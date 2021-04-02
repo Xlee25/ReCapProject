@@ -24,22 +24,14 @@ namespace Buisness.Concrete
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
 
-        public IDataResult<Customer> Get(int id)
-        {
-            Customer customer = _customerDal.Get(p => p.Id == id);
-            if (customer == null)
-            {
-                return new ErrorDataResult<Customer>(Messages.GetErrorCustomerMessage);
-            }
-            else
-            {
-                return new SuccessDataResult<Customer>(customer, Messages.GetSuccessCustomerMessage);
-            }
-        }
-
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
         {
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetailDto(), Messages.GetSuccessCustomerMessage);
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetailsDto(), Messages.GetSuccessCustomerMessage);
+        }
+
+        public IDataResult<Customer> GetById(int id)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id),Messages.GetCustomerById);
         }
 
 
@@ -60,5 +52,7 @@ namespace Buisness.Concrete
             _customerDal.Update(customer);
             return new SuccessResult(Messages.UpdateCustomerMessages);
         }
+
+        
     }
 }
