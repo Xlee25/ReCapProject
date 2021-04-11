@@ -42,7 +42,8 @@ namespace Buisness.DependedncyResolvers.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
 
-
+            builder.RegisterType<CreditCardManager>().As<ICreditCardService>();
+            builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly(); // çalışan uygulama içinde
 

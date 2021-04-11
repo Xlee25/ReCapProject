@@ -1,31 +1,42 @@
 ﻿using Buisness.Abstract;
 using Buisness.Constans.Messages;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Buisness.Concrete
 {
     public class RentalManager : IRentalService
     {
-        IRentalDal _rentalDal;
+        private readonly IRentalDal _rentalDal;
+        private readonly ICarService _carService;
+        private readonly ICustomerService _customerService;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, ICarService carService, ICustomerService customerService)
         {
             _rentalDal = rentalDal;
+            _carService = carService;
+            _customerService = customerService;
         }
 
         public IResult Add(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
+
             if (result.Count > 0)
             {
                 return new ErrorResult(Messages.RentalNotAdded);
             }
+
+            var businessRules = BusinessRules.Run(FindeksScoreCheck(rental.CustomerId, rental.CarId));
+
+            if (businessRules != null)
+                return businessRules;
+
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -64,6 +75,21 @@ namespace Buisness.Concrete
         public IResult UpdateReturnDate(int carId)
         {
             throw new NotImplementedException();
+        }
+
+        private IResult FindeksScoreCheck(int customerId, int carId)
+        {
+            var customerFindexPoint = _customerService.GetById(customerId).Data.FindexPoint;
+
+            if (customerFindexPoint == 0)
+                return new ErrorResult(Messages.CustomerFindexPointIsZero);
+
+            var carFindexPoint = _carService.GetById(carId).Data.MinFindeks;
+
+            if (customerFindexPoint < carFindexPoint)
+                return new ErrorResult(Messages.CustomerScoreIsInsufficient);
+
+            return new SuccessResult();
         }
     }
 }

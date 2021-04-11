@@ -40,11 +40,12 @@ namespace Buisness.Constans.Messages
         public static string CategoryUpdated = "Category Updated";
         public static string GetCustomerById = "Customer listed by id";
 
-        public static string AddCustomerMessage = "Musteri mesaji ekle";
-        public static string DeleteCustomerMessages = "Musteri mesaji sil";
-        public static string UpdateCustomerMessages = "Musteri mesaji guncelle";
-        public static string GetSuccessCustomerMessage = "Musteri mesaji eklendi";
-        public static string GetErrorCustomerMessage = "Musteri mesaji eklenemedi";
+        public static string AddCustomer = "Musteri eklendi";
+        public static string DeleteCustomer= "Musteri silindi";
+        public static string GetSuccessCustomer = "Musteri basariyla getirildi";
+        public static string GetErrorCustomer = "Musteri getirilemedi";
+        public static string CustomerUpdated="Musteri guncellendi";
+        public static string CardExist = "Kart kayitli";
 
         public static string RentalAdded = "Rental Added";
         public static string RentalNotAdded = "Rental Not Added !";
@@ -69,9 +70,13 @@ namespace Buisness.Constans.Messages
         public static string SuccessfulLogin ="Login Isleminiz Basarili";
         public static string UserAlreadyExists ="Hali Hazirda Boyle Kullanici Adi Var";
         public static string AccessTokenCreated ="Anahtariniz Olusturuldu";
+        public static string FindexUp = "Findex points increased";
 
         public static string InsufficientBalance = "Yetersiz bakiye";
         public static string PaymentCompleted = "Odeme tamamlandi";
-        internal static string CustomerUpdated;
+        public static string PaymentError = "Payment hatalı";
+
+        public static string CustomerFindexPointIsZero = "Hiç Findex Puanı'nız bulunamadı";
+        public static string CustomerScoreIsInsufficient = "Findex Puanı'nız yetersiz";
     }
 }

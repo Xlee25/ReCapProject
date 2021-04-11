@@ -1,8 +1,5 @@
 ﻿using Buisness.Abstract;
-using Core.Aspects.Autofac.Transaction;
 using Entities.Abstract;
-using Entities.Concrete;
-using Entities.Concrete.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,23 +7,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApi.Controllers
+namespace WepAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class CreditCardsController : ControllerBase
     {
-        IRentalService _rentalService;
-
-        public RentalsController(IRentalService rentalService)
+        ICreditCardService _creditCardService;
+        public CreditCardsController(ICreditCardService creditCardService)
         {
-            _rentalService = rentalService;
+            _creditCardService = creditCardService;
         }
 
-        [HttpGet("GetAll")]
+        [HttpPost("add")]
+        public IActionResult Add(CreditCard creditCard)
+        {
+            var result = _creditCardService.Add(creditCard);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        
+        [HttpPost("delete")]
+        public IActionResult Delete(CreditCard creditCard)
+        {
+            var result = _creditCardService.Delete(creditCard);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update(CreditCard creditCard)
+        {
+            var result = _creditCardService.Update(creditCard);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _rentalService.GetAll();
+            var result = _creditCardService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -34,49 +63,14 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("GetRentalDetailsDto")]
-        public IActionResult GetRentalDetailsDto()
+        [HttpGet("getcardsbyuserid")]
+        public IActionResult GetByCustomerId(int userId)
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _creditCardService.GetCardsByUserid(userId);
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
-        }
-
-        [HttpGet("CheckReturnDate")]
-        public IActionResult CheckReturnDate(int carId)
-        {
-            var result = _rentalService.CheckReturnDate(carId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("UpdateReturnDate")]
-        public IActionResult UpdateReturnDate(int carId)
-        {
-            var result = _rentalService.UpdateReturnDate(carId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpPost("Add")]
-        public IActionResult Add(Rental rental)
-        {
-            var result = _rentalService.Add(rental);
-
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
             return BadRequest(result);
         }
     }

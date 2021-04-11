@@ -19,10 +19,10 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (ReCapProjectContext context = new ReCapProjectContext())
             {
-                var result = from car in filter is null ? context.Cars : context.Cars.Where(filter)
-                             join col in context.Color
+                var result = from car in filter == null ? context.Cars:context.Cars.Where(filter)
+                             join col in context.Colors
                              on car.ColorId equals col.Id
-                             join bra in context.Brand
+                             join bra in context.Brands
                              on car.BrandId equals bra.Id
                              select new CarDetailDto
                              {
@@ -31,10 +31,11 @@ namespace DataAccess.Concrete.EntityFramework
                                  ColorId = col.Id,
                                  BrandName = bra.Name,
                                  ColorName = col.Name,
+                                 MinFindeks = car.MinFindeks,
                                  Name = car.Name,
                                  DailyPrice = car.DailyPrice,
                                  Description = car.Description,
-                                 ModelYear = car.ModelYear
+                                 ModelYear = car.ModelYear,                      
                              };
 
                 return result.ToList();
@@ -46,9 +47,9 @@ namespace DataAccess.Concrete.EntityFramework
             using (ReCapProjectContext context = new ReCapProjectContext())
             {
                 var result = from car in context.Cars.Where(c=>c.Id== id)
-                             join col in context.Color
+                             join col in context.Colors
                              on car.ColorId equals col.Id
-                             join bra in context.Brand
+                             join bra in context.Brands
                              on car.BrandId equals bra.Id
                              select new CarDetailDto
                              {
@@ -57,6 +58,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  ColorId = col.Id,
                                  BrandName = bra.Name,
                                  ColorName = col.Name,
+                                 MinFindeks = car.MinFindeks,
                                  Name = car.Name,
                                  DailyPrice = car.DailyPrice,
                                  Description = car.Description,

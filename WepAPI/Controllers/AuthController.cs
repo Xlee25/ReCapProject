@@ -39,6 +39,17 @@ namespace WepAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        //[HttpPost("CheckFindeks")]
+        //public ActionResult CheckFindeks(int id)
+        //{
+        //    var check = _userService.CheckFindeks(id);
+        //    if (check.Success)
+        //    {
+        //        return Ok(check);
+        //    };
+        //    return BadRequest(check);
+        //}
+
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {

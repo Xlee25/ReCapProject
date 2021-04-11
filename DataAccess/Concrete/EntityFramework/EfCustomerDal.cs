@@ -24,7 +24,8 @@ namespace DataAccess.Concrete.EntityFramework
                                 CompanyName = customer.CompanyName,
                                 FirstName = user.FirstName,
                                 LastName = user.LastName,
-                                Email = user.Email
+                                Email = user.Email,
+                                FindexPoint = customer.FindexPoint
                              };
                 return result.ToList();
             }

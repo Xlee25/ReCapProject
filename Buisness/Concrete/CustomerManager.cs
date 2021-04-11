@@ -26,7 +26,7 @@ namespace Buisness.Concrete
 
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
         {
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetailsDto(), Messages.GetSuccessCustomerMessage);
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetailsDto(), Messages.GetSuccessCustomer);
         }
 
         public IDataResult<Customer> GetById(int id)
@@ -38,19 +38,19 @@ namespace Buisness.Concrete
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
-            return new SuccessResult(Messages.AddCustomerMessage);
+            return new SuccessResult(Messages.AddCustomer);
         }
 
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
-            return new SuccessResult(Messages.DeleteCustomerMessages);
+            return new SuccessResult(Messages.DeleteCustomer);
         }
 
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
-            return new SuccessResult(Messages.UpdateCustomerMessages);
+            return new SuccessResult(Messages.CustomerUpdated);
         }
 
         

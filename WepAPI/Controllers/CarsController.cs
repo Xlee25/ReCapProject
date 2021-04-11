@@ -108,7 +108,7 @@ namespace WebApi.Controllers
         public IActionResult GetCarDetails()
         {
             var result = _carService.GetCarDetails();
-            if (true)
+            if (result.Success)
             {
                 return Ok(result);
             }
