@@ -43,8 +43,10 @@ namespace Buisness.Concrete
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
+        
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
+            var result = _customerService.GetByUserId(userToCheck.Id);
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
@@ -55,6 +57,13 @@ namespace Buisness.Concrete
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
+            if (result.Data == null)
+            {
+                int defaultFindexPoint = 500;
+                Customer newCustomer = new Customer { FindexPoint = defaultFindexPoint, UserId = userToCheck.Id };
+
+                _customerService.Add(newCustomer);
+            }
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
